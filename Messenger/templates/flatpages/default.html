@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body>
+    <nav>
+        <div class="nav_container">
+            <div class="left_nav_buttons" id="left_nav_buttons">
+                <ul class="nav_buttons_array">
+                    {% if user.is_authenticated %}
+                        <li class="nav_item">
+                            <a class="nav_link" href="/chat">Диалоги</a>
+                        </li>
+                        <li class="nav_item">
+                            <a class="nav_link" href="/users">Все пользователи</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li class="nav_item">
+                            <form class="login_nav_form" action="{% url 'account_logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="login_nav_button" >Выйти</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav_item">
+                            <form class="login_nav_form" action="{% url 'account_login' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="login_nav_button" >Войти</button>
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    {{ flatpage.content }}
+    {% endblock content %}
+</body>
+</html>

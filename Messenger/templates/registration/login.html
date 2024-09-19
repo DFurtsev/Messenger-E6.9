@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="b2" value="Войти">
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="b2" onclick="window.location.href = 'http://127.0.0.1:8000/accounts/signup/';">Зарегистрироваться</button>
+</form>
+
+{% endblock %}

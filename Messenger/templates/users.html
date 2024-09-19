@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+Chat
+{% endblock title %}
+{% load static %}
+
+        {% block content %}
+            {% if users_view %}
+                    {% for user in users_view %}
+                           <div id="user">
+                               {{user.username}}
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="pk" value="{{user.pk}}">
+                                    <input type="submit" class="b2" value='Написать сообщение' />
+                                </form>
+                           </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p>юзеров нет</p>
+                {% endif %}
+{% endblock content %}
