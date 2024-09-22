@@ -28,6 +28,36 @@ Chat
                     div.scrollTop = div.scrollHeight;
                 }
 
+                async function displayNewMessage(content, author, authorID, time, currentUserID, divDialogContainer) {
+                    let divMessageContainer = document.createElement('div');
+                    let divMessage = document.createElement('div');
+                    let divContent = document.createElement('div');
+                    let divAuthor = document.createElement('div');
+                    let divTime = document.createElement('div');
+
+                    if (currentUserID == authorID) {
+                        divMessageContainer.className = 'message_container_right';
+                        divMessage.className = 'message_right'
+                        console.log(`текущий юзер ${currentUserID}, автор ${authorID}`)
+                    } else if (currentUserID != authorID) {
+                        divMessageContainer.className = 'message_container_left';
+                        divMessage.className = 'message_left'
+                    }
+                    divContent.className = 'message_content';
+                    divAuthor.className = 'message_author';
+                    divTime.className = 'message_time';
+
+                    divContent.innerHTML = `${content}`;
+                    divAuthor.innerHTML = `${author}`;
+                    divTime.innerHTML = `${time}`;
+
+                    divDialogContainer.appendChild(divMessageContainer)
+                    divMessageContainer.appendChild(divMessage)
+                    divMessage.appendChild(divAuthor);
+                    divMessage.appendChild(divContent);
+                    divMessage.appendChild(divTime);
+                }
+
 
                                     <!--функция для получения и обновления списка сообщений в чате-->
                 async function getMessageFromChat(url, chatID) {
@@ -35,7 +65,7 @@ Chat
                     let messages = await (response.json());
                     let currentUserID = "{{ user.id|escapejs }}";
 
-                    chatWindow = document.getElementById('chat_window');
+                    let chatWindow = document.getElementById('chat_window');
                     chatWindow.innerHTML = '';
                     let divDialogContainer = document.createElement('div');
                     divDialogContainer.className = 'dialog_container';
@@ -44,38 +74,6 @@ Chat
 
                     const chatSocket = new WebSocket('ws://' + window.location.host+'/ws/livechat/' + chatID + '/');
 
-                                    <!--функция для генерации блоков сообщений-->
-                    async function displayNewMessage(content, author, authorID, time, currentUserID) {
-                        let divMessageContainer = document.createElement('div');
-                        let divMessage = document.createElement('div');
-                        let divContent = document.createElement('div');
-                        let divAuthor = document.createElement('div');
-                        let divTime = document.createElement('div');
-
-                        if (currentUserID == authorID) {
-                            divMessageContainer.className = 'message_container_right';
-                            divMessage.className = 'message_right'
-                            console.log(`текущий юзер ${currentUserID}, автор ${authorID}`)
-                        } else if (currentUserID != authorID) {
-                            divMessageContainer.className = 'message_container_left';
-                            divMessage.className = 'message_left'
-                            console.log(`но тут тоже что-то происходит, текущий юзер ${currentUserID}, автор ${authorID}`)
-                        }
-                        divContent.className = 'message_content';
-                        divAuthor.className = 'message_author';
-                        divTime.className = 'message_time';
-
-                        divContent.innerHTML = `${content}`;
-                        divAuthor.innerHTML = `${author}`;
-                        divTime.innerHTML = `${time}`;
-
-                        divDialogContainer.appendChild(divMessageContainer)
-                        divMessageContainer.appendChild(divMessage)
-                        divMessage.appendChild(divAuthor);
-                        divMessage.appendChild(divContent);
-                        divMessage.appendChild(divTime);
-                    }
-
                     for (let message = 0; message < messages.length; message++){
                         let content = messages[message].content;
                         let author = messages[message].author.username;
@@ -83,7 +81,7 @@ Chat
                         let time = messages[message].time;
                         var chat  = messages[message].chat;
 
-                        await displayNewMessage(content, author, authorID, time, currentUserID);
+                        await displayNewMessage(content, author, authorID, time, currentUserID, divDialogContainer);
                     }
 
                     let divInputField = document.createElement('div');
@@ -157,7 +155,7 @@ Chat
                         author = socketData.author
                         authorID = socketData.authorID
                         time = socketData.time
-                        await displayNewMessage(content, author, authorID, time, currentUserID)
+                        await displayNewMessage(content, author, authorID, time, currentUserID, divDialogContainer)
                         await scrollToBottom('div_dialog_container')
                     };
 
