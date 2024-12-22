@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+{% block content %}
+{% if user.id == user.id %}
+    <h1>Внесите изменения</h1>
+    <hr>
+    <form action="" method="POST" enctype=multipart/form-data>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="b2" value='Готово' />
+    </form>
+{%else%}
+    <h1>Упс...Кажется, вы не можете совершить это действие</h1>
+{%endif%}
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+User
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+
+{% if profile.id == user.id%}
+    <button class="" onclick="window.location.href = 'http://127.0.0.1:8000/user/{{profile.pk}}/edit';"> Редактировать </button>
+{%endif%}
+
+    <div class="user_page_container">
+        <div class="user_avatar">
+            <img src="{{ profile.avatar.url }}" class="user_avatar">
+        <div class="user_data_container">
+            <div id="username_box" class="user_data">
+                <div class="user_data_type">Никнейм</div>
+                <div id="username_data" class="user_data_string">{{ profile.username }}</div>
+            </div>
+
+            <div id="first_name_box" class="user_data">
+                <div class="user_data_type">Имя пользователя</div>
+                <div id="first_name_data" class="user_data_string">{{ profile.first_name }}</div>
+            </div>
+
+            <div id="last_name_box" class="user_data">
+                <div class="user_data_type">Фамилия пользователя</div>
+                <div id="last_name_data" class="user_data_string">{{ profile.last_name }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

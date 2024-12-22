@@ -1,0 +1,32 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+Chat
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+    Укажите участников для добавления в групповой чат
+    <div class="user_list_search_form">
+        <form action="{% url 'create_group_chat' %}" method="get">
+            <input name="username" type="text" placeholder="Поиск...">
+        </form>
+    </div>
+    <div class="user_list">
+        {% if create_group %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="create_group_chat_button>">Создать чат</button>
+                {% for user in create_group %}
+                    <div class="user_list_string" id="user">
+                        <label>
+                            {{user.username}}
+                            <input type="checkbox" id="{{user.id}}" name="user_id" value="{{user.id}}">
+                        </label>
+                    </div>
+                {% endfor %}
+            </form>
+        {% else %}
+            <p>Пока что нет зарегистрированных пользователей</p>
+        {% endif %}
+    </div>
+{% endblock content %}
