@@ -1,12 +1,14 @@
-from django.contrib.auth.models import User
+from datetime import datetime
+
+
 from rest_framework import serializers
-from .models import Message, Chat
+from .models import Message, Chat, User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name')
+        fields = ('id', 'username', 'first_name', 'last_name', 'avatar')
 
 
 class ChatSerializer(serializers.ModelSerializer):
@@ -19,6 +21,7 @@ class ChatSerializer(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
+    time = serializers.DateTimeField(format="%d.%m.%y %H:%M")
 
     class Meta:
         model = Message
@@ -26,13 +29,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class MessagePostSerializer(serializers.ModelSerializer):
+    # time = serializers.DateTimeField(format="%d.%m.%y %H:%M")
+
     class Meta:
         model = Message
         fields = ('content', 'author', 'chat')
 
-# class MessageSerializer(serializers.ModelSerializer):
-#     author = UserSerializer(read_only=True)
-#
-#     class Meta:
-#         model = Message
-#         fields = ('id', 'time', 'text', 'author')

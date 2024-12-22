@@ -1,12 +1,8 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
-
+from django.contrib.auth.admin import UserAdmin
 from .models import *
-from modeltranslation.admin import TranslationAdmin
 
 
-class UserAdmin(TranslationAdmin):
-    model = User
 
 
 class UserInline(admin.TabularInline):
@@ -19,6 +15,7 @@ class ChatAdmin(admin.ModelAdmin):
     inlines = (UserInline,)
 
 
+admin.site.register(User, UserAdmin)
 admin.site.register(Message)
 admin.site.register(Chat, ChatAdmin)
 admin.site.register(UserChat)

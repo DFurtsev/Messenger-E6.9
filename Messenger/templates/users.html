@@ -4,20 +4,30 @@ Chat
 {% endblock title %}
 {% load static %}
 
-        {% block content %}
-            {% if users_view %}
-                    {% for user in users_view %}
-                           <div id="user">
-                               {{user.username}}
-                                <form action="" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="pk" value="{{user.pk}}">
-                                    <input type="submit" class="b2" value='Написать сообщение' />
-                                </form>
-                           </div>
-
-                    {% endfor %}
-                {% else %}
-                    <p>юзеров нет</p>
-                {% endif %}
+{% block content %}
+    <div class="user_list_search_form">
+        <form action="{% url 'users' %}" method="get">
+            <input name="username" type="text" placeholder="Поиск...">
+        </form>
+    </div>
+    <div class="user_list">
+        {% if users_view %}
+            {% for user in users_view %}
+                <div class="user_list_string" id="user">
+                    <div class="user_list_username">
+                        <a class="nav_item" href="/user/{{user.id}}">{{user.username}}</a>
+                    </div>
+                    <div class="user_list_write_message_button">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="to_user" value="{{user.pk}}">
+                            <input type="submit" class="b2" value='Написать сообщение' />
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>юзеров нет</p>
+        {% endif %}
+    </div>
 {% endblock content %}

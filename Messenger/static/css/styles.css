@@ -2,6 +2,21 @@ body {
     background-color: #949395;
 }
 
+.nav_container{
+    margin-bottom: 3px;
+}
+.nav_item{
+    margin-right: 2px;
+}
+
+.nav_item:hover{
+    background-color: #e3dcdd;
+}
+
+.nav_link{
+    color: inherit;
+    text-decoration: none;
+}
 
 .main_window {
     display: flex;
@@ -59,6 +74,83 @@ body {
 
 }
 
+.chat_header{
+    background-color: #baa4c0d4;
+    border-radius: 10px;
+    height: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+}
+
+.chat_name_container{
+    width: 70%;
+}
+
+.add_user_form_box{
+    width: 25%;
+    position: relative;
+}
+
+.add_user_form{
+    width: 100%;
+}
+
+.adding_user_input_field{
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.addUserButton{
+    height: 100%;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 7px;
+    padding: 0.5em 1.5em;
+    background-color:#000000d4;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    color: #2196f3;
+    border: 2px solid #2196f3;
+    border-radius: 1.5em;
+}
+
+.addUserButton:hover{
+    color: #000;
+    background-color: #2196f3;
+}
+
+.search_result{
+    position: absolute;
+    width: 100%;
+    background-color: white;
+}
+
+.search_result_variant_box{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.search_result_variant_box:hover{
+    color: #000;
+    background-color: #2196f3;
+}
+
+.search_result_variant_username{
+    margin: 3px;
+    padding: 3px;
+}
+
+.search_result_variant_adding_button{
+    margin: 3px;
+    padding: 3px;
+}
+
 .dialog_container {
     display: flex;
     flex-direction: column;
@@ -114,7 +206,7 @@ body {
 .send_message_button:hover {
     color: #000;
     background-color: #2196f3;
-    }
+}
 
 
 .message_container_left{
@@ -213,4 +305,69 @@ body {
     background-color: #fff0;
     height: 100%;
     border: none;
+}
+
+.user_list{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user_list_string{
+    margin-top: 5px;
+    display: flex;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user_list_search_form{
+    padding: 10px;
+}
+
+.user_list_username{
+
+}
+
+.user_list_write_message_button{
+    padding-left: 20px;
+}
+
+.user_page_container{
+    display: flex;
+}
+
+.user_avatar{
+    margin: 3px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+
+}
+
+.user_avatar_chat{
+    margin: 3px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+
+.user_data_container{
+    margin-left: 40px;
+}
+
+.user_data{
+    display: flex;
+    margin: 3px;
+}
+
+.user_data_type{
+    margin: 3px;
+
+}
+
+.user_data_string{
+    margin: 3px;
 }

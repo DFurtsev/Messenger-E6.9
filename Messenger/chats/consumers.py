@@ -30,10 +30,9 @@ class LiveChat(WebsocketConsumer):
         content = text_data_json["content"]
         author = text_data_json["author"]
         chat = text_data_json["chat"]
-        print(text_data_json)
-        # Send message to room group
+        time = text_data_json["time"]
         async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name, {"type": "chat.message", "content": content, "authorID": author, "chat": chat}
+            self.room_group_name, {"type": "chat.message", "content": content, "authorID": author, "chat": chat, "time": time}
         )
 
 
@@ -42,7 +41,11 @@ class LiveChat(WebsocketConsumer):
         authorID = event["authorID"]
         user = User.objects.get(id=authorID)
         author = user.username
+        avatar = user.avatar.url
         chat = event["chat"]
-        time = str(datetime.datetime.now())
-        print({"content": content, "authorID": authorID, "author": author, "chat": chat, "time": time})
-        self.send(text_data=json.dumps({"content": content, "authorID": authorID, "author": author, "chat": chat, "time": time}))
+        received_time = event["time"]
+        time1 = datetime.datetime.strptime(received_time, '%Y-%m-%dT%H:%M:%S.%fZ')
+        print(time1)
+        time = datetime.datetime.strftime(time1, '%d.%m.%y %H:%M')
+        # time = str(datetime.datetime.now())
+        self.send(text_data=json.dumps({"content": content, "authorID": authorID, "author": author, "chat": chat, "time": time, "avatar": avatar}))
